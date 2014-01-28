@@ -4,6 +4,7 @@
 #include "../xll8/xll/ensure.h"
 #include <WinSock2.h>
 #include <ws2tcpip.h>
+#include <mswsock.h>
 
 #pragma comment(lib, "Ws2_32.lib")
 
@@ -109,13 +110,13 @@ namespace sock {
 	inline std::string recv(SOCKET s, int bufsiz = 4096)
 	{
 		std::string buf;
+		buf.resize(bufsiz);
 
-		int n, off(0);
-		do {
+		for (int n = bufsiz, off = 0; n == bufsiz; off += bufsiz) {
 			buf.reserve(off + bufsiz);
 			ensure (0 <= (n = ::recv(s, &buf[off], bufsiz, 0)));
-			off += bufsiz;
-		} while (n == bufsiz);
+			buf.resize(off + n);
+		}
 
 		return buf;
 	}

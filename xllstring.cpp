@@ -106,10 +106,10 @@ static AddInX xai_string_get(
 	.Arg(XLL_BOOLX, _T("_All"), _T("is an optional boolean indicating all of Sep must be used instead of any."))
 	.Category(CATEGORY)
 	.FunctionHelp(_T("Return a std::string."))
-	.Documentation(R"xyz(
+	.Documentation(R"(
 		Prior to Excel 2007 strings were limited to 255 characters. Use a separator
 		to split long strings into a range.
-	)xyz")
+	)")
 );
 LPOPER WINAPI xll_string_get(HANDLEX h, xcstr sep, BOOL all)
 {
