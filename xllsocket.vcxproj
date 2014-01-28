@@ -90,6 +90,11 @@
     <ClInclude Include="xllsocket.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="xllconnect.cpp" />
+    <ClCompile Include="xlloption.cpp" />
+    <ClCompile Include="xllrecv.cpp" />
+    <ClCompile Include="xllsend.cpp" />
+    <ClCompile Include="xllshutdown.cpp" />
     <ClCompile Include="xllstring.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>

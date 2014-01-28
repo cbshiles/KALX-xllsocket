@@ -1,6 +1,6 @@
 // xllstring.cpp - handles to std::string
 //#define EXCEL12
-#include <string.h>
+#include <cstring>
 #include <mbstring.h>
 #include "../xll8/xll/xll.h"
 
