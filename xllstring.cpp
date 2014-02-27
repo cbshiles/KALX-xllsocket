@@ -1,5 +1,5 @@
 // xllstring.cpp - handles to std::string
-//#define EXCEL12
+#define EXCEL12
 #include <cstring>
 #include <mbstring.h>
 #include "../xll8/xll/xll.h"
@@ -106,24 +106,28 @@ static AddInX xai_string_get(
 	.Arg(XLL_BOOLX, _T("_All"), _T("is an optional boolean indicating all of Sep must be used instead of any."))
 	.Category(CATEGORY)
 	.FunctionHelp(_T("Return a std::string."))
-	.Documentation(R"(
-		Prior to Excel 2007 strings were limited to 255 characters. Use a separator
-		to split long strings into a range.
-	)")
+	.Documentation(
+		_T("Prior to Excel 2007 strings were limited to 255 characters. Use a separator ")
+		_T("to split long strings into a range.")
+	)
 );
-LPOPER WINAPI xll_string_get(HANDLEX h, xcstr sep, BOOL all)
+LPOPERX WINAPI xll_string_get(HANDLEX h, xcstr sep, BOOL all)
 {
 #pragma XLLEXPORT
 	static OPERX s;
 
-	s = OPERX(xlerr::NA);
 	try {
 		OPERX hs(h);
 
+		if (!*sep) {
+			sep = _T("\r\n");
+			all = true;
+		}
 		s = *xll_string_split(&hs, sep, all);
 	}
 	catch (const std::exception& ex) {
 		XLL_ERROR(ex.what());
+		s = OPERX(xlerr::NA);
 	}
 
 	return &s;

@@ -51,24 +51,53 @@ SOCKET WINAPI xll_socket(LONG af, LONG type, LONG proto)
 	return ::socket(af, type, proto);
 }
 
-/*
+
 #ifdef _DEBUG
+
+#include <cmath>
+#include "codec.h"
+
+LPOPERX WINAPI xll_string_split(LPOPERX po, xcstr sep, BOOL all);
 
 int xll_test_sock()
 {
 	try {
+		srand((unsigned int)::time(0));
 		size_t size;
 		size = sizeof(SOCKET);
 		int ret;
 		sock::et s;
 		ensure (s != INVALID_SOCKET);
 
-//		ret = s.connect("127.0.0.1", "5000");
-		ret = sock::connect(s, "example.com", "http");
+		union {
+			int i[4];
+			BYTE b[16];
+		} key;
+		for (int i = 0; i < 4; ++i)
+			key.i[i] = rand();
+		std::string wskey = Base64::Encode(&(key.b[0]), 16);
+
+//		ret = sock::connect(s, "192.168.1.203", "8080");
+//		ret = sock::connect(s, "example.com", "http");
 //		ret = sock::connect(s, "google.com", "http");
+		ret = sock::connect(s, "echo.websocket.org", "80");
 		ret = WSAGetLastError();
-		const char* get = "HEAD /index.html HTTP/1.0\r\n";
+		const char* get = "GET /?encoding=text HTTP/1.1\r\n";
 		ret = ::send(s, get, strlen(get), 0);
+		ret = sock::send(s, "Cache-Control: no-cache\r\n");
+		ret = sock::send(s, "Pragma: no-cache\r\n");
+		ret = sock::send(s, "Sec-WebSocket-Extensions: permessage-deflate; client_max_window_bits, x-webkit-deflate-frame\r\n");
+		ret = sock::send(s, "Host: echo.websocket.org\r\n");
+        ret = sock::send(s, "Upgrade: websocket\r\n");
+        ret = sock::send(s, "Connection: Upgrade\r\n");
+        ret = sock::send(s, "Sec-WebSocket-Key: ");
+		ret = sock::send(s, wskey.c_str(), wskey.length());
+		ret = sock::send(s, "\r\n");
+        ret = sock::send(s, "Origin: http://www.websocket.org\r\n");
+        ret = sock::send(s, "Sec-WebSocket-Protocol: chat, superchat\r\n");
+        ret = sock::send(s, "Sec-WebSocket-Version: 13\r\n");
+
+		ret = WSAGetLastError();
 		ret = ::send(s, "\r\n", 2, 0);
 		ret = WSAGetLastError();
 //		::shutdown(s, SD_SEND);
@@ -90,4 +119,3 @@ int xll_test_sock()
 static Auto<OpenX> xao_test_sock(xll_test_sock);
 
 #endif // _DEBUG
-*/

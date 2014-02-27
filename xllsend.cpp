@@ -16,6 +16,7 @@ SOCKET WINAPI xll_socket_send(SOCKET s, LPOPER pData, BOOL crlf, xcstr sep)
 {
 #pragma XLLEXPORT
 	try {
+
 		const OPER& data(*pData);
 		int nsep = strlen(sep);
 		for (WORD i = 0; i < data.rows(); ++i) {

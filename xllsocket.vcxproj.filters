@@ -21,6 +21,12 @@
     <ClInclude Include="xllsocket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="codec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="xllhttp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="xllsocket.cpp">
@@ -44,5 +50,17 @@
     <ClCompile Include="xllrecv.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tsocket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xllasync.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xllhttp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
   </ItemGroup>
 </Project>

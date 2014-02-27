@@ -86,11 +86,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="codec.h" />
     <ClInclude Include="socket.h" />
+    <ClInclude Include="xllhttp.h" />
     <ClInclude Include="xllsocket.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="tsocket.cpp" />
+    <ClCompile Include="xllasync.cpp" />
     <ClCompile Include="xllconnect.cpp" />
+    <ClCompile Include="xllhttp.cpp" />
     <ClCompile Include="xlloption.cpp" />
     <ClCompile Include="xllrecv.cpp" />
     <ClCompile Include="xllsend.cpp" />
@@ -104,6 +109,9 @@
     <ProjectReference Include="..\xll8\xll.vcxproj">
       <Project>{8b15c18c-4c25-476c-abbd-88be05c35a3e}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
